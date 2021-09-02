@@ -6,8 +6,8 @@
 # Based on Krunker Version v4.2.1
 
 # SNIPER 1, AK 2, PISTOL 3, SMG 4, REV 5, SHOTTY 6, LMG 7, SEMI 8, RPG 9, UZI 10, DEAGLE 11, ALIEN 12, CROSSY 14,
-# FAMAS 15, SAWEDOFF 16, AUTOPISTOL 17, BLASTER 19.
-# TODO: ASSIGN CLASS NAMES TO WEAPON ID FOR PRINTING
+# FAMAS 15, SAWNOFF 16, AUTOPISTOL 17, BLASTER 19.
+# TODO: GUI (ADVANCED SHIT)
 
 import json
 import random
@@ -17,9 +17,10 @@ import time
 num_of_spins = 0
 delay = 0
 CURRENT_SEASON = 4
-available_skins = None
+LAST_UPDATE = "Sept 2 2021"
+KRUNKER_VERSION = "4.2.1"
 
-print("Welcome to the Krunker Heroic Spin Simulator.\n")
+print(f"Welcome to the Krunker Heroic Spin Simulator.\nLast updated: {LAST_UPDATE} for version {KRUNKER_VERSION}")
 
 
 def set_spins():
@@ -39,14 +40,16 @@ def set_delay():
         print("Please enter an integer.")
         set_delay()
 
-
 def load_and_print_available_skins(rarity_number, rarity_color):
-    global available_skins
-    available_skins = [item for item in data if item["rarity"] == rarity_number and item["seas"] == CURRENT_SEASON]
+    available_skins = []
+    for skin in data:
+        if ("reqT" and "limT" and "noSale") not in skin and skin["seas"] == CURRENT_SEASON and skin["rarity"] == rarity_number:
+            available_skins.append(skin)
+    chosen_skin = random.choice(available_skins)
     if rarity_number == 6:
         unob_skin_name = ""
         char_position = 0
-        for char in random.choice(available_skins)["name"]:
+        for char in chosen_skin["name"]:
             if char_position % 6 == 0:
                 unob_skin_name += colored(char, "red", attrs=["bold", "dark"])
             elif char_position % 6 == 1:
@@ -60,9 +63,120 @@ def load_and_print_available_skins(rarity_number, rarity_color):
             else:
                 unob_skin_name += colored(char, "magenta", attrs=["bold", "dark"])
             char_position += 1
-        cprint(unob_skin_name)
+        if "weapon" in chosen_skin:
+            if chosen_skin["weapon"] == 1:
+                cprint(f"{unob_skin_name} [Sniper]")
+            elif chosen_skin["weapon"] == 2:
+                cprint(f"{unob_skin_name} [AK]")
+            elif chosen_skin["weapon"] == 3:
+                cprint(f"{unob_skin_name} [Pistol]")
+            elif chosen_skin["weapon"] == 4:
+                cprint(f"{unob_skin_name} [SMG]")
+            elif chosen_skin["weapon"] == 5:
+                cprint(f"{unob_skin_name} [Revolver]")
+            elif chosen_skin["weapon"] == 6:
+                cprint(f"{unob_skin_name} [Shotgun]")
+            elif chosen_skin["weapon"] == 7:
+                cprint(f"{unob_skin_name} [Machine Gun]")
+            elif chosen_skin["weapon"] == 8:
+                cprint(f"{unob_skin_name} [Semi-Auto]")
+            elif chosen_skin["weapon"] == 9:
+                cprint(f"{unob_skin_name} [Rocket Launcher]")
+            elif chosen_skin["weapon"] == 10:
+                cprint(f"{unob_skin_name} [Micro Uzi]")
+            elif chosen_skin["weapon"] == 11:
+                cprint(f"{unob_skin_name} [Desert Eagle]")
+            elif chosen_skin["weapon"] == 12:
+                cprint(f"{unob_skin_name} [Alien Blaster]")
+            elif chosen_skin["weapon"] == 14:
+                cprint(f"{unob_skin_name} [Crossbow]")
+            elif chosen_skin["weapon"] == 15:
+                cprint(f"{unob_skin_name} [FAMAS]")
+            elif chosen_skin["weapon"] == 16:
+                cprint(f"{unob_skin_name} [Sawed-Off]")
+            elif chosen_skin["weapon"] == 17:
+                cprint(f"{unob_skin_name} [Auto Pistol]")
+            elif chosen_skin["weapon"] == 19:
+                cprint(f"{unob_skin_name} [Blaster]")
+            else:
+                cprint(f"{unob_skin_name} [Other Weapon]")
+        else:
+            if chosen_skin["type"] == 1:
+                cprint(f"{unob_skin_name} [Hat]")
+            elif chosen_skin["type"] == 2:
+                cprint(f"{unob_skin_name} [Back]")
+            elif chosen_skin["type"] == 3:
+                cprint(f"{unob_skin_name} [Melee]")
+            elif chosen_skin["type"] == 4:
+                cprint(f"{unob_skin_name} [Spray]")
+            elif chosen_skin["type"] == 5:
+                cprint(f"{unob_skin_name} [Dye]")
+            elif chosen_skin["type"] == 6:
+                cprint(f"{unob_skin_name} [Waist]")
+            elif chosen_skin["type"] == 7:
+                cprint(f"{unob_skin_name} [Face]")
+            elif chosen_skin["type"] == 8:
+                cprint(f"{unob_skin_name} [Shoes]")
+            else:
+                cprint(f"{unob_skin_name} [Other Clothing]")
     else:
-        cprint(f"{random.choice(available_skins)['name']}", rarity_color, attrs=["bold", "dark"])
+        cprint(f"{chosen_skin['name']}", rarity_color, attrs=["bold", "dark"], end="")
+        if "weapon" in chosen_skin:
+            if chosen_skin["weapon"] == 1:
+                print(" [Sniper]")
+            elif chosen_skin["weapon"] == 2:
+                print(" [AK]")
+            elif chosen_skin["weapon"] == 3:
+                print(" [Pistol]")
+            elif chosen_skin["weapon"] == 4:
+                print(" [SMG]")
+            elif chosen_skin["weapon"] == 5:
+                print(" [Revolver]")
+            elif chosen_skin["weapon"] == 6:
+                print(" [Shotgun]")
+            elif chosen_skin["weapon"] == 7:
+                print(" [Machine Gun]")
+            elif chosen_skin["weapon"] == 8:
+                print(" [Semi Auto]")
+            elif chosen_skin["weapon"] == 9:
+                print(" [Rocket Launcher]")
+            elif chosen_skin["weapon"] == 10:
+                print(" [Micro Uzi]")
+            elif chosen_skin["weapon"] == 11:
+                print(" [Desert Eagle]")
+            elif chosen_skin["weapon"] == 12:
+                print(" [Alien Blaster]")
+            elif chosen_skin["weapon"] == 14:
+                print(" [Crossbow]")
+            elif chosen_skin["weapon"] == 15:
+                print(" [FAMAS]")
+            elif chosen_skin["weapon"] == 16:
+                print(" [Sawed Off]")
+            elif chosen_skin["weapon"] == 17:
+                print(" [Auto Pistol]")
+            elif chosen_skin["weapon"] == 19:
+                print(" [Blaster]")
+            else:
+                print(" [Other Weapon]")
+        else:
+            if chosen_skin["type"] == 1:
+                print(" [Hat]")
+            elif chosen_skin["type"] == 2:
+                print(" [Back]")
+            elif chosen_skin["type"] == 3:
+                print(" [Melee]")
+            elif chosen_skin["type"] == 4:
+                print(" [Spray]")
+            elif chosen_skin["type"] == 5:
+                print(" [Dye]")
+            elif chosen_skin["type"] == 6:
+                print(" [Waist]")
+            elif chosen_skin["type"] == 7:
+                print(" [Face]")
+            elif chosen_skin["type"] == 8:
+                print(" [Shoes]")
+            else:
+                print(" [Other Clothing]")
 
 
 file = open("items.json")
@@ -70,6 +184,7 @@ data = json.load(file)
 
 set_spins()
 set_delay()
+print()
 
 for i in range(num_of_spins):
     result = random.randint(1, 10000)
@@ -86,4 +201,3 @@ for i in range(num_of_spins):
     else:
         load_and_print_available_skins(1, "blue")
     time.sleep(delay)
-

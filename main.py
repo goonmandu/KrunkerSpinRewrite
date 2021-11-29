@@ -1,6 +1,7 @@
 # Created by GoonMandu: https://www.github.com/goonmandu
 # Discord: goonmandu#4897
 # Twitter: @goonmandu_
+# Last updated 29 Nov 2021
 # First party code is published under the MIT License.
 # All other assets are copyright of their respective owners.
 # Based on Krunker Version v4.2.1
@@ -16,8 +17,8 @@ import time
 
 num_of_spins = 0
 delay = 0
-CURRENT_SEASON = 4
-LAST_UPDATE = "Sept 2 2021"
+CURRENT_SEASON = [4]
+LAST_UPDATE = "November 10 2021"
 KRUNKER_VERSION = "4.2.1"
 
 print(f"Welcome to the Krunker Heroic Spin Simulator.\nLast updated: {LAST_UPDATE} for version {KRUNKER_VERSION}")
@@ -40,10 +41,23 @@ def set_delay():
         print("Please enter an integer.")
         set_delay()
 
+
+def ask_season():
+    global CURRENT_SEASON
+    enable_past_seasons = input("Enable skins from past seasons? y/n - ")
+    if enable_past_seasons.lower() == "y":
+        CURRENT_SEASON = [season_number for season_number in range(1, 10)]
+    elif enable_past_seasons.lower() == "n":
+        pass
+    else:
+        print("Enter either y or n.")
+        ask_season()
+
+
 def load_and_print_available_skins(rarity_number, rarity_color):
     available_skins = []
     for skin in data:
-        if ("reqT" and "limT" and "noSale") not in skin and skin["seas"] == CURRENT_SEASON and skin["rarity"] == rarity_number:
+        if ("reqT" and "limT" and "noSale") not in skin and skin["seas"] in CURRENT_SEASON and skin["rarity"] == rarity_number:
             available_skins.append(skin)
     chosen_skin = random.choice(available_skins)
     if rarity_number == 6:
@@ -65,118 +79,118 @@ def load_and_print_available_skins(rarity_number, rarity_color):
             char_position += 1
         if "weapon" in chosen_skin:
             if chosen_skin["weapon"] == 1:
-                cprint(f"{unob_skin_name} [Sniper]")
+                cprint(f"{unob_skin_name} [Sniper] {chosen_skin['index']}")
             elif chosen_skin["weapon"] == 2:
-                cprint(f"{unob_skin_name} [AK]")
+                cprint(f"{unob_skin_name} [AK] {chosen_skin['index']}")
             elif chosen_skin["weapon"] == 3:
-                cprint(f"{unob_skin_name} [Pistol]")
+                cprint(f"{unob_skin_name} [Pistol] {chosen_skin['index']}")
             elif chosen_skin["weapon"] == 4:
-                cprint(f"{unob_skin_name} [SMG]")
+                cprint(f"{unob_skin_name} [SMG] {chosen_skin['index']}")
             elif chosen_skin["weapon"] == 5:
-                cprint(f"{unob_skin_name} [Revolver]")
+                cprint(f"{unob_skin_name} [Revolver] {chosen_skin['index']}")
             elif chosen_skin["weapon"] == 6:
-                cprint(f"{unob_skin_name} [Shotgun]")
+                cprint(f"{unob_skin_name} [Shotgun]  {chosen_skin['index']}")
             elif chosen_skin["weapon"] == 7:
-                cprint(f"{unob_skin_name} [Machine Gun]")
+                cprint(f"{unob_skin_name} [Machine Gun] {chosen_skin['index']}")
             elif chosen_skin["weapon"] == 8:
-                cprint(f"{unob_skin_name} [Semi-Auto]")
+                cprint(f"{unob_skin_name} [Semi-Auto] {chosen_skin['index']}")
             elif chosen_skin["weapon"] == 9:
-                cprint(f"{unob_skin_name} [Rocket Launcher]")
+                cprint(f"{unob_skin_name} [Rocket Launcher] {chosen_skin['index']}")
             elif chosen_skin["weapon"] == 10:
-                cprint(f"{unob_skin_name} [Micro Uzi]")
+                cprint(f"{unob_skin_name} [Micro Uzi] {chosen_skin['index']}")
             elif chosen_skin["weapon"] == 11:
-                cprint(f"{unob_skin_name} [Desert Eagle]")
+                cprint(f"{unob_skin_name} [Desert Eagle] {chosen_skin['index']}")
             elif chosen_skin["weapon"] == 12:
-                cprint(f"{unob_skin_name} [Alien Blaster]")
+                cprint(f"{unob_skin_name} [Alien Blaster] {chosen_skin['index']}")
             elif chosen_skin["weapon"] == 14:
-                cprint(f"{unob_skin_name} [Crossbow]")
+                cprint(f"{unob_skin_name} [Crossbow] {chosen_skin['index']}")
             elif chosen_skin["weapon"] == 15:
-                cprint(f"{unob_skin_name} [FAMAS]")
+                cprint(f"{unob_skin_name} [FAMAS] {chosen_skin['index']}")
             elif chosen_skin["weapon"] == 16:
-                cprint(f"{unob_skin_name} [Sawed-Off]")
+                cprint(f"{unob_skin_name} [Sawed-Off] {chosen_skin['index']}")
             elif chosen_skin["weapon"] == 17:
-                cprint(f"{unob_skin_name} [Auto Pistol]")
+                cprint(f"{unob_skin_name} [Auto Pistol] {chosen_skin['index']}")
             elif chosen_skin["weapon"] == 19:
-                cprint(f"{unob_skin_name} [Blaster]")
+                cprint(f"{unob_skin_name} [Blaster] {chosen_skin['index']}")
             else:
-                cprint(f"{unob_skin_name} [Other Weapon]")
+                cprint(f"{unob_skin_name} [Other Weapon] {chosen_skin['index']}")
         else:
             if chosen_skin["type"] == 1:
-                cprint(f"{unob_skin_name} [Hat]")
+                cprint(f"{unob_skin_name} [Hat] {chosen_skin['index']}")
             elif chosen_skin["type"] == 2:
-                cprint(f"{unob_skin_name} [Back]")
+                cprint(f"{unob_skin_name} [Back] {chosen_skin['index']}")
             elif chosen_skin["type"] == 3:
-                cprint(f"{unob_skin_name} [Melee]")
+                cprint(f"{unob_skin_name} [Melee] {chosen_skin['index']}")
             elif chosen_skin["type"] == 4:
-                cprint(f"{unob_skin_name} [Spray]")
+                cprint(f"{unob_skin_name} [Spray] {chosen_skin['index']}")
             elif chosen_skin["type"] == 5:
-                cprint(f"{unob_skin_name} [Dye]")
+                cprint(f"{unob_skin_name} [Dye] {chosen_skin['index']}")
             elif chosen_skin["type"] == 6:
-                cprint(f"{unob_skin_name} [Waist]")
+                cprint(f"{unob_skin_name} [Waist] {chosen_skin['index']}")
             elif chosen_skin["type"] == 7:
-                cprint(f"{unob_skin_name} [Face]")
+                cprint(f"{unob_skin_name} [Face] {chosen_skin['index']}")
             elif chosen_skin["type"] == 8:
-                cprint(f"{unob_skin_name} [Shoes]")
+                cprint(f"{unob_skin_name} [Shoes] {chosen_skin['index']}")
             else:
-                cprint(f"{unob_skin_name} [Other Clothing]")
+                cprint(f"{unob_skin_name} [Other Clothing] {chosen_skin['index']}")
     else:
         cprint(f"{chosen_skin['name']}", rarity_color, attrs=["bold", "dark"], end="")
         if "weapon" in chosen_skin:
             if chosen_skin["weapon"] == 1:
-                print(" [Sniper]")
+                print(f" [Sniper] {chosen_skin['index']}")
             elif chosen_skin["weapon"] == 2:
-                print(" [AK]")
+                print(f" [AK] {chosen_skin['index']}")
             elif chosen_skin["weapon"] == 3:
-                print(" [Pistol]")
+                print(f" [Pistol] {chosen_skin['index']}")
             elif chosen_skin["weapon"] == 4:
-                print(" [SMG]")
+                print(f" [SMG] {chosen_skin['index']}")
             elif chosen_skin["weapon"] == 5:
-                print(" [Revolver]")
+                print(f" [Revolver] {chosen_skin['index']}")
             elif chosen_skin["weapon"] == 6:
-                print(" [Shotgun]")
+                print(f" [Shotgun] {chosen_skin['index']}")
             elif chosen_skin["weapon"] == 7:
-                print(" [Machine Gun]")
+                print(f" [Machine Gun] {chosen_skin['index']}")
             elif chosen_skin["weapon"] == 8:
-                print(" [Semi Auto]")
+                print(f" [Semi Auto] {chosen_skin['index']}")
             elif chosen_skin["weapon"] == 9:
-                print(" [Rocket Launcher]")
+                print(f" [Rocket Launcher] {chosen_skin['index']}")
             elif chosen_skin["weapon"] == 10:
-                print(" [Micro Uzi]")
+                print(f" [Micro Uzi] {chosen_skin['index']}")
             elif chosen_skin["weapon"] == 11:
-                print(" [Desert Eagle]")
+                print(f" [Desert Eagle] {chosen_skin['index']}")
             elif chosen_skin["weapon"] == 12:
-                print(" [Alien Blaster]")
+                print(f" [Alien Blaster] {chosen_skin['index']}")
             elif chosen_skin["weapon"] == 14:
-                print(" [Crossbow]")
+                print(f" [Crossbow] {chosen_skin['index']}")
             elif chosen_skin["weapon"] == 15:
-                print(" [FAMAS]")
+                print(f" [FAMAS] {chosen_skin['index']}")
             elif chosen_skin["weapon"] == 16:
-                print(" [Sawed Off]")
+                print(f" [Sawed Off] {chosen_skin['index']}")
             elif chosen_skin["weapon"] == 17:
-                print(" [Auto Pistol]")
+                print(f" [Auto Pistol] {chosen_skin['index']}")
             elif chosen_skin["weapon"] == 19:
-                print(" [Blaster]")
+                print(f" [Blaster] {chosen_skin['index']}")
             else:
                 print(" [Other Weapon]")
         else:
             if chosen_skin["type"] == 1:
-                print(" [Hat]")
+                print(f" [Hat] {chosen_skin['index']}")
             elif chosen_skin["type"] == 2:
-                print(" [Back]")
+                print(f" [Back] {chosen_skin['index']}")
             elif chosen_skin["type"] == 3:
-                print(" [Melee]")
+                print(f" [Melee] {chosen_skin['index']}")
             elif chosen_skin["type"] == 4:
-                print(" [Spray]")
+                print(f" [Spray] {chosen_skin['index']}")
             elif chosen_skin["type"] == 5:
-                print(" [Dye]")
+                print(f" [Dye] {chosen_skin['index']}")
             elif chosen_skin["type"] == 6:
-                print(" [Waist]")
+                print(f" [Waist] {chosen_skin['index']}")
             elif chosen_skin["type"] == 7:
-                print(" [Face]")
+                print(f" [Face] {chosen_skin['index']}")
             elif chosen_skin["type"] == 8:
-                print(" [Shoes]")
+                print(f" [Shoes] {chosen_skin['index']}")
             else:
-                print(" [Other Clothing]")
+                print(f" [Other Clothing] {chosen_skin['index']}")
 
 
 file = open("items.json")
@@ -184,6 +198,7 @@ data = json.load(file)
 
 set_spins()
 set_delay()
+ask_season()
 print()
 
 for i in range(num_of_spins):
